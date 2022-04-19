@@ -1,6 +1,8 @@
+using Core.Commands;
 using Core.Entities;
 using Core.Queries;
 using DAL;
+using DAL.Commands.CategoryCommands;
 using DAL.Queries.GetAllAreaQueries;
 using DAL.Queries.GetAllCategoryQueries;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,9 @@ builder.Services.AddDbContext<PlaceContext>(x => x.UseSqlServer(builder.Configur
 
 builder.Services.AddScoped<IQueryHandler<GetAllCategoriesQuery, IList<Category>>, GetAllCategoriesQueryHandler>();
 builder.Services.AddScoped<IQueryHandler<GetAllAreasQuery, IList<Area>>, GetAllAreasQueryHandler>();
+
+builder.Services.AddScoped<ICommandHandler<CreateCategoryCommand>, CreateCategoryCommandHandler>();
+builder.Services.AddScoped<ICommandHandler<DeleteCategoryCommand>, DeleteCategoryCommandHandler>();
 
 var app = builder.Build();
 
