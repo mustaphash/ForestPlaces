@@ -1,6 +1,7 @@
 using Core.Entities;
 using Core.Queries;
 using DAL;
+using DAL.Queries.GetAllAreaQueries;
 using DAL.Queries.GetAllCategoryQueries;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PlaceContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionStrings")));
 
 builder.Services.AddScoped<IQueryHandler<GetAllCategoriesQuery, IList<Category>>, GetAllCategoriesQueryHandler>();
+builder.Services.AddScoped<IQueryHandler<GetAllAreasQuery, IList<Area>>, GetAllAreasQueryHandler>();
 
 var app = builder.Build();
 
