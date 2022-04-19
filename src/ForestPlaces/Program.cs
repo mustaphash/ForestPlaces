@@ -2,6 +2,7 @@ using Core.Commands;
 using Core.Entities;
 using Core.Queries;
 using DAL;
+using DAL.Commands.AreaCommands;
 using DAL.Commands.CategoryCommands;
 using DAL.Queries.GetAllAreaQueries;
 using DAL.Queries.GetAllCategoryQueries;
@@ -23,6 +24,8 @@ builder.Services.AddScoped<IQueryHandler<GetAllAreasQuery, IList<Area>>, GetAllA
 
 builder.Services.AddScoped<ICommandHandler<CreateCategoryCommand>, CreateCategoryCommandHandler>();
 builder.Services.AddScoped<ICommandHandler<DeleteCategoryCommand>, DeleteCategoryCommandHandler>();
+builder.Services.AddScoped<ICommandHandler<CreateAreaCommand>, CreateAreaCommandHandler>();
+builder.Services.AddScoped<ICommandHandler<DeleteAreaCommand>, DeleteAreaCommandHandler>();
 
 var app = builder.Build();
 
