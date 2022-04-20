@@ -13,7 +13,7 @@ namespace DAL.Queries.GetAllAreaQueries
         }
         public async Task<IList<Area>> HandleAsync(GetAllAreasQuery query, CancellationToken cancellationToken = default)
         {
-            List<Area> areas = await _placeContext.Areas.ToListAsync(cancellationToken);
+            List<Area> areas = await _placeContext.Areas.Include(p => p.Places).ToListAsync(cancellationToken);
 
             return areas;
         }

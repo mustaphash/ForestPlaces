@@ -4,8 +4,10 @@ using Core.Queries;
 using DAL;
 using DAL.Commands.AreaCommands;
 using DAL.Commands.CategoryCommands;
+using DAL.Commands.PlaceCommands;
 using DAL.Queries.GetAllAreaQueries;
 using DAL.Queries.GetAllCategoryQueries;
+using DAL.Queries.GetAllPlaceQueries;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,11 +23,13 @@ builder.Services.AddDbContext<PlaceContext>(x => x.UseSqlServer(builder.Configur
 
 builder.Services.AddScoped<IQueryHandler<GetAllCategoriesQuery, IList<Category>>, GetAllCategoriesQueryHandler>();
 builder.Services.AddScoped<IQueryHandler<GetAllAreasQuery, IList<Area>>, GetAllAreasQueryHandler>();
+builder.Services.AddScoped<IQueryHandler<GetAllPlacesQuery, IList<Place>>, GetAllPlacesQueryHandler>();
 
 builder.Services.AddScoped<ICommandHandler<CreateCategoryCommand>, CreateCategoryCommandHandler>();
 builder.Services.AddScoped<ICommandHandler<DeleteCategoryCommand>, DeleteCategoryCommandHandler>();
 builder.Services.AddScoped<ICommandHandler<CreateAreaCommand>, CreateAreaCommandHandler>();
 builder.Services.AddScoped<ICommandHandler<DeleteAreaCommand>, DeleteAreaCommandHandler>();
+builder.Services.AddScoped<ICommandHandler<CreatePlaceCommand>, CreatePlaceCommandHandler>();
 
 var app = builder.Build();
 

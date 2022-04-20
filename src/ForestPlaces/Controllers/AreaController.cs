@@ -2,6 +2,7 @@
 using Core.Entities;
 using Core.Queries;
 using DAL.Commands.AreaCommands;
+using DAL.Commands.PlaceCommands;
 using DAL.Queries.GetAllAreaQueries;
 using ForestPlaces.Models.AreaModels;
 using Microsoft.AspNetCore.Mvc;
@@ -15,15 +16,18 @@ namespace ForestPlaces.Controllers
         private readonly IQueryHandler<GetAllAreasQuery, IList<Area>> _getAllAreasQuery;
         private readonly ICommandHandler<CreateAreaCommand> _createAreaCommand;
         private readonly ICommandHandler<DeleteAreaCommand> _deleteAreaCommand;
+        private readonly ICommandHandler<CreatePlaceCommand> _cratePlaceCommand;
 
         public AreaController(
             IQueryHandler<GetAllAreasQuery, IList<Area>> getAllAreasQuery,
             ICommandHandler<CreateAreaCommand> createAreaCommand,
-            ICommandHandler<DeleteAreaCommand> deleteAreaCommand)
+            ICommandHandler<DeleteAreaCommand> deleteAreaCommand,
+            ICommandHandler<CreatePlaceCommand> cratePlaceCommand)
         {
             _getAllAreasQuery = getAllAreasQuery;
             _createAreaCommand = createAreaCommand;
             _deleteAreaCommand = deleteAreaCommand;
+            _cratePlaceCommand = cratePlaceCommand;
         }
 
         [HttpGet]
@@ -40,6 +44,15 @@ namespace ForestPlaces.Controllers
         {
             var area = model.ToArea();
             await _createAreaCommand.HandleAsync(new CreateAreaCommand(area));
+
+            return NoContent();
+        }
+
+        [HttpPost("place")]
+        public async Task<IActionResult> CratePlace(CreatePlaceModel model)
+        {
+            var place = model.ToPlace();
+            await _cratePlaceCommand.HandleAsync(new CreatePlaceCommand(model.AreaId, place));
 
             return NoContent();
         }
